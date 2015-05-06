@@ -1,4 +1,4 @@
-// safe_rename transliterates file names to ASCII-equivalent with no spaces for easier processing.
+// safe-renamer transliterates file names to ASCII-equivalent with no spaces for easier processing.
 package main
 
 import (
