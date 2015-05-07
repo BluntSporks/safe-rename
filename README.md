@@ -29,8 +29,10 @@ The install this program and its dependencies by running:
     go get github.com/BluntSporks/safe-renamer
 
 ## Usage
-    safe-renamer -commit -file [filename]
+Usage:
 
-Arguments:
-* commit: Add commit flag to actually do the file renaming, otherwise it just checks that renaming can be done.
-* file: Name of file which is going to be renamed to safe characters, NOT the safe name which is provided for you.
+    safe-renamer [-commit] FILENAME
+
+Options:
+
+    -commit  Actually do the file renaming, otherwise it just checks that renaming can be done.
