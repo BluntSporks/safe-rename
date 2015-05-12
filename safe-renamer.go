@@ -4,32 +4,33 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/fiam/gounidecode/unidecode"
 	"log"
 	"os"
 	"path"
 	"regexp"
+
+	"github.com/fiam/gounidecode/unidecode"
 )
 
 func main() {
 	// Parse flags.
-	file := flag.String("file", "", "Name of file to rename")
 	commit := flag.Bool("commit", false, "Commit the changes by actually renaming the file")
 	flag.Parse()
 
 	// Check arguments.
-	if *file == "" {
-		log.Fatal("Missing -file argument")
+	if len(flag.Args()) < 1 {
+		log.Fatal("Missing filename argument")
 	}
+	file := flag.Arg(0)
 
 	// Check that source file exists.
-	if _, err := os.Stat(*file); err != nil {
-		log.Fatal("Source file " + *file + " does not exist")
+	if _, err := os.Stat(file); err != nil {
+		log.Fatal("Source file " + file + " does not exist")
 	}
 
 	// Do processing.
-	dir := path.Dir(*file)
-	base := path.Base(*file)
+	dir := path.Dir(file)
+	base := path.Base(file)
 
 	// Transliterate Unicode to ASCII.
 	safeBase := unidecode.Unidecode(base)
@@ -53,7 +54,7 @@ func main() {
 			log.Fatal("Target file " + safeBase + " already exists")
 		}
 		if *commit {
-			err := os.Rename(*file, joined)
+			err := os.Rename(file, joined)
 			if err == nil {
 				fmt.Printf("Renamed %s to %s\n", base, safeBase)
 			} else {
